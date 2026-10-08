@@ -40,8 +40,9 @@ Every crash we collected (100+ across three machines) has this signature.
 ### What the main thread is doing at that moment: `glXDestroyContext`
 
 Full all-thread backtraces (in [`backtraces/`](backtraces/), 5 reproducer crashes plus a real plasmashell login crash)
-show the same picture every time. While the render thread is inside `glUnmapBuffer` (via `QSGBatchRenderer::unmap`)
-on **its** context, the GUI thread is **destroying a different, temporary GLX context**:
+show the same picture every time. While the render thread is updating a dynamic vertex buffer on **its** context (`QSGBatchRenderer::Renderer::unmap`,
+qsgbatchrenderer.cpp:1133 → `QGles2Buffer::fullDynamicBufferUpdateForCurrentFrame` → `glBindBuffer` + `glBufferSubData`;
+the Qt frame in between is a tail call, so it doesn't show in the stack), the GUI thread is **destroying a different, temporary GLX context**:
 
 ```
 GUI thread:
@@ -55,10 +56,12 @@ GUI thread:
 ```
 
 When a new window is exposed, Qt's threaded render loop creates a short-lived GL context on the GUI thread
-(`newFallbackSurface` probes the format for the window's offscreen fallback surface) and destroys it again right away.
+(`newFallbackSurface` "resolves the format" for the window's offscreen fallback surface). Qt's GLX layer makes that
+context current on a temporary 1×1 dummy window to query the GL version, releases it, destroys the dummy window,
+and the context is destroyed right after.
 So the race is:
 
-- **Thread A (render thread of window 1):** `glUnmapBuffer` on context 1, which is current on that thread
+- **Thread A (render thread of window 1):** `glBufferSubData` on context 1, which is current on that thread
 - **Thread B (GUI thread):** `glXDestroyContext` on a temporary context 2, which is not shared with context 1
 
 Two unrelated contexts on two threads; destroying one corrupts the other's buffer unmap. This is also exactly when
