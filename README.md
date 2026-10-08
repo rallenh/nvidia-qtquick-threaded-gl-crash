@@ -68,7 +68,15 @@ Two unrelated contexts on two threads; destroying one corrupts the other's buffe
 it happens in KDE Plasma: the panel window is exposed at login while the desktop window is animating. In the
 plasmashell dump the GUI thread is in the same `glXDestroyContext ← newFallbackSurface ← handleExposure` path.
 
-## What the reproducer does
+## Even smaller: GLX only, no Qt
+
+[`glx/`](glx/) has a ~300-line C program that reproduces the same crash in a few seconds with plain Xlib/GLX/OpenGL:
+one thread updates vertex buffers (`glBufferSubData`) and draws; a second thread does what Qt does when a window is
+exposed: create a temporary context, make it current on a dummy window, **create and destroy a 1×1 pbuffer**, destroy
+the context. Without the pbuffer step it never crashes; with it, every run crashes. Details and the switch matrix are in
+[`glx/README.md`](glx/README.md).
+
+## What the Qt reproducer does
 
 `repro.qml` runs in Qt's `qml` tool, with no C++ and no KDE:
 
