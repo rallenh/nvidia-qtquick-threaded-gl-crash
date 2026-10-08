@@ -1,0 +1,22 @@
+run 1: ok
+run 2: ok
+run 3: ok
+run 4: ok
+run 5: ok
+run 6: ok
+run 7: ok
+run 8: ok
+run 9: ok
+run 10: ok
+RESULT loop=basic backend=opengl effect=multieffect panels=20 period=700: 0 crashes / 10 runs
+run 1: ok
+run 2: ok
+run 3: ok
+run 4: ok
+run 5: ok
+run 6: ok
+run 7: ok
+run 8: ok
+run 9: ok
+run 10: ok
+RESULT loop=threaded backend=vulkan effect=multieffect panels=20 period=700: 0 crashes / 10 runs

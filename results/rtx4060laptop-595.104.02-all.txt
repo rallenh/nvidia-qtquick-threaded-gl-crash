@@ -1,0 +1,85 @@
+run 1: ok
+run 2: ok
+run 3: ok
+run 4: ok
+run 5: ok
+run 6: ok
+run 7: ok
+run 8: ok
+run 9: ok
+run 10: ok
+RESULT loop=threaded backend=opengl effect=none panels=20 period=700: 0 crashes / 10 runs
+./run-repro.sh: line 7: 24163 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 1: exit 139 qml: REPRO: start effect dropshadow panels 20 period 700
+./run-repro.sh: line 7: 24348 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 2: exit 139 qml: REPRO: start effect dropshadow panels 20 period 700
+./run-repro.sh: line 7: 24822 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 3: exit 139 qml: REPRO: start effect dropshadow panels 20 period 700
+./run-repro.sh: line 7: 25225 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 4: exit 139 qml: REPRO: start effect dropshadow panels 20 period 700
+./run-repro.sh: line 7: 25446 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 5: exit 139 qml: REPRO: start effect dropshadow panels 20 period 700
+./run-repro.sh: line 7: 25790 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 6: exit 139 qml: REPRO: start effect dropshadow panels 20 period 700
+./run-repro.sh: line 7: 25917 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 7: exit 139 qml: REPRO: start effect dropshadow panels 20 period 700
+run 8: ok
+run 9: ok
+./run-repro.sh: line 7: 28216 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 10: exit 139 qml: REPRO: start effect dropshadow panels 20 period 700
+RESULT loop=threaded backend=opengl effect=dropshadow panels=20 period=700: 8 crashes / 10 runs
+./run-repro.sh: line 7: 28569 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 1: exit 139 qml: REPRO: start effect multieffect panels 20 period 700
+./run-repro.sh: line 7: 28793 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 2: exit 139 qml: REPRO: start effect multieffect panels 20 period 700
+./run-repro.sh: line 7: 29052 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 3: exit 139 qml: REPRO: start effect multieffect panels 20 period 700
+./run-repro.sh: line 7: 29356 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 4: exit 139 qml: REPRO: start effect multieffect panels 20 period 700
+./run-repro.sh: line 7: 29620 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 5: exit 139 qml: REPRO: start effect multieffect panels 20 period 700
+./run-repro.sh: line 7: 29985 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 6: exit 139 qml: REPRO: start effect multieffect panels 20 period 700
+./run-repro.sh: line 7: 30434 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 7: exit 139 qml: REPRO: start effect multieffect panels 20 period 700
+./run-repro.sh: line 7: 30562 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 8: exit 139 qml: REPRO: start effect multieffect panels 20 period 700
+./run-repro.sh: line 7: 30837 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 9: exit 139 qml: REPRO: start effect multieffect panels 20 period 700
+./run-repro.sh: line 7: 31059 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 10: exit 139 qml: REPRO: start effect multieffect panels 20 period 700
+RESULT loop=threaded backend=opengl effect=multieffect panels=20 period=700: 10 crashes / 10 runs
+run 1: ok
+./run-repro.sh: line 7: 31678 Segmentation fault         QSG_RENDER_LOOP=${QSG_RENDER_LOOP:-threaded} QSG_RHI_BACKEND=${QSG_RHI_BACKEND:-opengl} QT_FORCE_STDERR_LOGGING=1 timeout 120 "$qml" repro.qml -- --REPRO_EFFECT=$effect --REPRO_PANELS=$panels --REPRO_PERIOD=$period > /dev/null 2> run.err
+run 2: exit 139 qml: REPRO: start effect layer panels 20 period 700
+run 3: ok
+run 4: ok
+run 5: ok
+run 6: ok
+run 7: ok
+run 8: ok
+run 9: ok
+run 10: ok
+RESULT loop=threaded backend=opengl effect=layer panels=20 period=700: 1 crashes / 10 runs
+run 1: ok
+run 2: ok
+run 3: ok
+run 4: ok
+run 5: ok
+run 6: ok
+run 7: ok
+run 8: ok
+run 9: ok
+run 10: ok
+RESULT loop=basic backend=opengl effect=multieffect panels=20 period=700: 0 crashes / 10 runs
+run 1: ok
+run 2: ok
+run 3: ok
+run 4: ok
+run 5: ok
+run 6: ok
+run 7: ok
+run 8: ok
+run 9: ok
+run 10: ok
+RESULT loop=threaded backend=vulkan effect=multieffect panels=20 period=700: 0 crashes / 10 runs

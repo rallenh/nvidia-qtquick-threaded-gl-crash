@@ -1,0 +1,3 @@
+run.err
+nvidia-bug-report*.log.gz
+*.core
