@@ -37,6 +37,34 @@ Same path on the other drivers:
 
 Every crash we collected (100+ across three machines) has this signature.
 
+### What the main thread is doing at that moment: `glXDestroyContext`
+
+Full all-thread backtraces (in [`backtraces/`](backtraces/), 5 reproducer crashes plus a real plasmashell login crash)
+show the same picture every time. While the render thread is inside `glUnmapBuffer` (via `QSGBatchRenderer::unmap`)
+on **its** context, the GUI thread is **destroying a different, temporary GLX context**:
+
+```
+GUI thread:
+#0 glXDestroyContext ()                                   (libGLX_nvidia.so.0 + 0x72f7b)
+#1 QGLXContext::~QGLXContext                              (qxcb-glx-integration: qglxintegration.cpp:458)
+#2 QOpenGLContext::destroy / ~QOpenGLContext              (qopenglcontext.cpp:461/488)
+#3 QRhiGles2InitParams::newFallbackSurface(QSurfaceFormat) (qrhigles2.cpp:642)
+#4 QSGRhiSupport::maybeCreateOffscreenSurface(QWindow*)   (qsgrhisupport.cpp:901)
+#5 QSGThreadedRenderLoop::handleExposure(QQuickWindow*)
+#6 QWindow::event (Expose)                                <- the new window being shown
+```
+
+When a new window is exposed, Qt's threaded render loop creates a short-lived GL context on the GUI thread
+(`newFallbackSurface` probes the format for the window's offscreen fallback surface) and destroys it again right away.
+So the race is:
+
+- **Thread A (render thread of window 1):** `glUnmapBuffer` on context 1, which is current on that thread
+- **Thread B (GUI thread):** `glXDestroyContext` on a temporary context 2, which is not shared with context 1
+
+Two unrelated contexts on two threads; destroying one corrupts the other's buffer unmap. This is also exactly when
+it happens in KDE Plasma: the panel window is exposed at login while the desktop window is animating. In the
+plasmashell dump the GUI thread is in the same `glXDestroyContext ← newFallbackSurface ← handleExposure` path.
+
 ## What the reproducer does
 
 `repro.qml` runs in Qt's `qml` tool, with no C++ and no KDE:
