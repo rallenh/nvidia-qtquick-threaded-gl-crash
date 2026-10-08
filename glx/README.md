@@ -39,3 +39,17 @@ Thread A crashes in `glBufferSubData` with the same `libnvidia-glcore` frames as
 Single Qt habits on their own (robust flag, share group, make-current every frame) don't crash;
 the blur/shadow pass (`effect=1`) isn't needed either: the pbuffer step is what does it, together with a context
 being created/destroyed around it on the second thread.
+
+## Is the program (or Qt) misusing GLX?
+
+We checked the GLX threading rules: each context is only ever current on one thread; the temporary context and the pbuffer
+are released before they're destroyed; `XInitThreads()` is called first. And:
+
+| Run | Result |
+|---|---|
+| NVIDIA, both threads on **separate X connections** (`separate_display=1`) | still crashes, 3 / 3 |
+| **All-Mesa stack** (Xvfb + Mesa llvmpipe), same binary, same recipe and full Qt-like mode | 0 / 3 runs, ~2000 cycles each, no X or GL errors |
+
+(Mesa's client GLX can't be tested against NVIDIA's X server: creating a pbuffer through NVIDIA's server-side GLX fails with
+`GLXBadPbuffer`, even in pbuffer-only mode, hence Xvfb.) Valid GLX usage, a clean run on another implementation, and a segfault
+inside `libnvidia-glcore` point to the NVIDIA driver.
