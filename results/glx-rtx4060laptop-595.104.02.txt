@@ -1,0 +1,15 @@
+glx-repro: NVIDIA Corporation | 1.4 | 12 s, destroyer sleep 2000 us, 8 buffers/frame, destroyer mode 1, shared display, effect 0, qt-like 8
+recipe run 1: exit 139
+glx-repro: NVIDIA Corporation | 1.4 | 12 s, destroyer sleep 2000 us, 8 buffers/frame, destroyer mode 1, shared display, effect 0, qt-like 8
+recipe run 2: exit 139
+glx-repro: NVIDIA Corporation | 1.4 | 12 s, destroyer sleep 2000 us, 8 buffers/frame, destroyer mode 1, shared display, effect 0, qt-like 8
+recipe run 3: exit 139
+glx-repro: NVIDIA Corporation | 1.4 | 12 s, destroyer sleep 2000 us, 8 buffers/frame, destroyer mode 1, shared display, effect 0, qt-like 0
+glx-repro: no crash: 240 frames, 108 create/destroy cycles
+control (no pbuffer) run 1: exit 0
+glx-repro: NVIDIA Corporation | 1.4 | 12 s, destroyer sleep 2000 us, 8 buffers/frame, destroyer mode 1, shared display, effect 0, qt-like 0
+glx-repro: no crash: 342 frames, 155 create/destroy cycles
+control (no pbuffer) run 2: exit 0
+glx-repro: NVIDIA Corporation | 1.4 | 12 s, destroyer sleep 2000 us, 8 buffers/frame, destroyer mode 1, shared display, effect 0, qt-like 0
+glx-repro: no crash: 338 frames, 155 create/destroy cycles
+control (no pbuffer) run 3: exit 0

@@ -40,6 +40,15 @@ Single Qt habits on their own (robust flag, share group, make-current every fram
 the blur/shadow pass (`effect=1`) isn't needed either: the pbuffer step is what does it, together with a context
 being created/destroyed around it on the second thread.
 
+## Other machines
+
+| Machine | Recipe (`REPRO_DUMMY=1 REPRO_PBUFFER_STEP=1 ./glx-repro 12 2000 8 1 0 0 8`) | Control, no pbuffer (`./glx-repro 12 2000 8 1 0 0 0`) |
+|---|---|---|
+| RTX 5060 Ti (GB206), 595.104.02 | crashes (see above) | 0 crashes |
+| RTX 4060 Laptop (AD107), 595.104.02 | **3 / 3**, same frames | 0 / 3 |
+
+Raw output: [`../results/glx-rtx4060laptop-595.104.02.txt`](../results/glx-rtx4060laptop-595.104.02.txt).
+
 ## Is the program (or Qt) misusing GLX?
 
 We checked the GLX threading rules: each context is only ever current on one thread; the temporary context and the pbuffer
