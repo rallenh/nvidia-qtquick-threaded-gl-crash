@@ -46,8 +46,10 @@ being created/destroyed around it on the second thread.
 |---|---|---|
 | RTX 5060 Ti (GB206), 595.104.02 | crashes (see above) | 0 crashes |
 | RTX 4060 Laptop (AD107), 595.104.02 | **3 / 3**, same frames | 0 / 3 |
+| RTX 5060 (GB206), 615.71.09, near-stock Fedora 44 | **3 / 3**, same frames as the 615 Qt crashes | 0 / 3 |
 
-Raw output: [`../results/glx-rtx4060laptop-595.104.02.txt`](../results/glx-rtx4060laptop-595.104.02.txt).
+Raw output: [`../results/glx-rtx4060laptop-595.104.02.txt`](../results/glx-rtx4060laptop-595.104.02.txt),
+[`../results/glx-rtx5060-615.71.09.txt`](../results/glx-rtx5060-615.71.09.txt).
 
 ## Is the program (or Qt) misusing GLX?
 
