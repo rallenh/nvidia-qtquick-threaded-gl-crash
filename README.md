@@ -163,6 +163,17 @@ plasmashell also avoided it.
   loop had GL context-loss problems on device hot-plug in our tests.
 - Avoid continuous animations under per-frame effects in the window that's already running when other windows start.
 
+## Related
+
+- **KDE bug [522424](https://bugs.kde.org/show_bug.cgi?id=522424)**: KWin on Wayland with NVIDIA's driver stuttered the first
+  time a Qt Quick effect opened, because Qt (re)creates OpenGL contexts for each new Qt Quick surface ("Qt creates two contexts
+  for some reason", ~4–5 ms each). Fixed in Plasma 6.8 by giving Qt a single persistent context in KWin's own Qt platform plugin:
+  KWin commit [f6bd033b](https://invent.kde.org/plasma/kwin/-/commit/f6bd033b79849ca263e4412d5d0c40b5570dd346)
+  ([96879c13](https://invent.kde.org/plasma/kwin/-/commit/96879c132273db3a409e57a0d8b043bfe62d85cf) on Plasma/6.8).
+  That's the same per-window context churn that triggers the crash here (the temporary context + 1×1 pbuffer from
+  `QRhiGles2InitParams::newFallbackSurface`). The KWin fix only covers KWin's internal Qt Quick UIs; apps using Qt's standard
+  X11/GLX platform plugin, such as plasmashell on X11, still create and destroy that context and pbuffer for every new window.
+
 ## License
 
 MIT, see [LICENSE](LICENSE).
