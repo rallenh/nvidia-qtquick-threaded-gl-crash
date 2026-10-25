@@ -7,7 +7,8 @@ have their own render thread, and a desktop widget animating under a shadow effe
 crashes the shell on roughly 40% of logins.
 
 - Reproduces on **RTX 5060 Ti, RTX 5060 (Blackwell, GB206)** and **RTX 4060 Laptop (Ada, AD107)**
-- Reproduces on driver branches **580 (580.178.04), 595 (595.104.02) and 615 (615.71.09)**
+- Reproduces on driver branches **580 (580.178.04), 595 (595.104.02, 595.112.07) and 615 (615.71.09)**
+- **Still present in 595.112.07** (re-tested 2026-10-25 on the RTX 5060 Ti; see [Results](#results))
 - Does **not** reproduce with a single render thread, with Qt's Vulkan backend, or with Mesa's OpenGL running
   on NVIDIA's Vulkan driver (zink) on the same GPU
 
@@ -32,6 +33,8 @@ Crashing thread: Qt's per-window render thread.
 ```
 
 Same path on the other drivers:
+- 595.112.07: `+0xa2cb91, +0xa2154a, +0xa22bea, +0x721dcc, +0x721f42` (all 14 Qt crashes and 3 GLX crashes in the re-test;
+  stacks in [`results/rtx5060ti-595.112.07-crash-stacks.txt`](results/rtx5060ti-595.112.07-crash-stacks.txt))
 - 615.71.09: `+0xa2cb11, +0xa21e5a, +0xa234fa, +0x72242c, +0x7225a2`
 - 580.178.04: `+0xa31ad1, +0xa31f6a, +0xa35b1a, +0x705c7c, +0x705df2`
 
@@ -116,17 +119,19 @@ Each run takes about 15 s. Windows open and close on screen while it runs. Crash
 
 Crashes per 10 runs (each run = 20 panel-window cycles). Raw output is in [`results/`](results/).
 
-| Configuration | RTX 5060 Ti, 595.104.02 | RTX 4060 Laptop, 595.104.02 | RTX 4060 Laptop, 580.178.04 | RTX 5060, 615.71.09 |
-|---|---|---|---|---|
-| threaded GL, no effect | 1 | 0 | 1 | 0 |
-| threaded GL, offscreen layer | 1 | 1 | 2 | 0 |
-| threaded GL, Qt5Compat DropShadow | 3 | 8 | **10** | 4 |
-| threaded GL, Qt 6 MultiEffect | 6 | **10** | **10** | 4 |
-| **basic** loop (one render thread), GL | 0 | 0 | 0 | 0 |
-| threaded, **Vulkan** backend | 0 | 0 | 0 | 0 |
-| threaded, **zink** (Mesa GL on NVIDIA Vulkan) | 0 | – | – | 0 |
+| Configuration | RTX 5060 Ti, 595.104.02 | RTX 5060 Ti, **595.112.07** | RTX 4060 Laptop, 595.104.02 | RTX 4060 Laptop, 580.178.04 | RTX 5060, 615.71.09 |
+|---|---|---|---|---|---|
+| threaded GL, no effect | 1 | 3 | 0 | 1 | 0 |
+| threaded GL, offscreen layer | 1 | 0 | 1 | 2 | 0 |
+| threaded GL, Qt5Compat DropShadow | 3 | 5 | 8 | **10** | 4 |
+| threaded GL, Qt 6 MultiEffect | 6 | 6 | **10** | **10** | 4 |
+| **basic** loop (one render thread), GL | 0 | 0 | 0 | 0 | 0 |
+| threaded, **Vulkan** backend | 0 | 0 | 0 | 0 | 0 |
+| threaded, **zink** (Mesa GL on NVIDIA Vulkan) | 0 | 0 | – | – | 0 |
 
 How to read it:
+- **595.112.07 (October 2026) doesn't fix it:** same crash rates within run-to-run noise, same crash path, and the GLX-only
+  recipe still crashes 3/3 (control 0/3). Re-tested on the same machine (Machine A) with kernel 7.2.11 and Xorg 21.1.25.
 - The bug needs **two or more GL contexts on different threads** rendering at the same time in NVIDIA's OpenGL
   implementation. Even without any effect it crashes occasionally, given enough window creations.
 - A per-frame blur/shadow shader in the animating window makes the crash far more likely. Qt 6's `MultiEffect` is
@@ -151,7 +156,7 @@ plasmashell also avoided it.
 | | Machine A | Machine B | Machine C |
 |---|---|---|---|
 | GPU | RTX 5060 Ti (GB206, 10de:2d04), VBIOS 98.06.39.40.B2 | RTX 4060 Laptop (AD107, 10de:28e0), VBIOS 95.07.40.40.40, NVIDIA-only (hybrid off) | RTX 5060 (GB206, 10de:2d05), VBIOS 98.06.39.80.2E |
-| Driver | 595.104.02 (open modules) | 595.104.02 and 580.178.04 | 615.71.09 (open modules) |
+| Driver | 595.104.02, re-tested on 595.112.07 (open modules) | 595.104.02 and 580.178.04 | 615.71.09 (open modules) |
 | CPU / board | Ryzen 9 9950X, ASUS ROG Crosshair X870E Dark Hero | Alienware m16 R2, Core Ultra 9 185H | Ryzen 9 5950X, ASUS Pro WS X570-ACE |
 | OS | Fedora 44, kernel 7.2.8, Xorg 21.1.24 | same | same (near-stock install) |
 | Qt / desktop | Qt 6.11.2, KDE Plasma 6.7.5 (X11) | same | same |

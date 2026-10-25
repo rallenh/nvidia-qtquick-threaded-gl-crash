@@ -45,6 +45,7 @@ being created/destroyed around it on the second thread.
 | Machine | Recipe (`REPRO_DUMMY=1 REPRO_PBUFFER_STEP=1 ./glx-repro 12 2000 8 1 0 0 8`) | Control, no pbuffer (`./glx-repro 12 2000 8 1 0 0 0`) |
 |---|---|---|
 | RTX 5060 Ti (GB206), 595.104.02 | crashes (see above) | 0 crashes |
+| RTX 5060 Ti (GB206), **595.112.07** | **3 / 3**, same path at the new offsets | 0 / 3 |
 | RTX 4060 Laptop (AD107), 595.104.02 | **3 / 3**, same frames | 0 / 3 |
 | RTX 5060 (GB206), 615.71.09, near-stock Fedora 44 | **3 / 3**, same frames as the 615 Qt crashes | 0 / 3 |
 
