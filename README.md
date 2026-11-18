@@ -139,12 +139,12 @@ How to read it:
 - **620.73.04 (production branch, November 2026) doesn't fix it:** the Qt repro crashed 18 of 40 effect runs on the RTX 5060 Ti
   and 23 of 40 on the RTX 4060 Laptop (DropShadow and MultiEffect 10/10), with the same crash path at the same new offsets on
   both GPUs; the GLX-only recipe crashes 3/3 on both (control 0/3); basic, Vulkan and zink controls 0/10 on both.
-  Re-tested on Machines A and B with kernel 7.3.4, Xorg 21.1.26, Plasma 6.7.6.
+  Re-tested on Machines A and B.
 - **620.70.06 (November 2026) doesn't fix it either:** the Qt repro crashed 19 of 40 effect runs (DropShadow 8/10,
   MultiEffect 10/10), same crash path at new offsets; the GLX-only recipe still crashes 3/3 (control 0/3); basic, Vulkan and
-  zink controls 0/10. Re-tested on Machine A with kernel 7.2.15, Xorg 21.1.25, Plasma 6.7.6.
+  zink controls 0/10. Re-tested on Machine A.
 - **595.112.07 (October 2026) doesn't fix it:** same crash rates within run-to-run noise, same crash path, and the GLX-only
-  recipe still crashes 3/3 (control 0/3). Re-tested on the same machine (Machine A) with kernel 7.2.11 and Xorg 21.1.25.
+  recipe still crashes 3/3 (control 0/3). Re-tested on the same machine (Machine A).
 - The bug needs **two or more GL contexts on different threads** rendering at the same time in NVIDIA's OpenGL
   implementation. Even without any effect it crashes occasionally, given enough window creations.
 - A per-frame blur/shadow shader in the animating window makes the crash far more likely. Qt 6's `MultiEffect` is
@@ -171,8 +171,8 @@ plasmashell also avoided it.
 | GPU | RTX 5060 Ti (GB206, 10de:2d04), VBIOS 98.06.39.40.B2 | RTX 4060 Laptop (AD107, 10de:28e0), VBIOS 95.07.40.40.40, NVIDIA-only (hybrid off) | RTX 5060 (GB206, 10de:2d05), VBIOS 98.06.39.80.2E |
 | Driver | 595.104.02, re-tested on 595.112.07, 620.70.06 and 620.73.04 (open modules) | 595.104.02 and 580.178.04, re-tested on 620.73.04 (open modules) | 615.71.09 (open modules) |
 | CPU / board | Ryzen 9 9950X, ASUS ROG Crosshair X870E Dark Hero | Alienware m16 R2, Core Ultra 9 185H | Ryzen 9 5950X, ASUS Pro WS X570-ACE |
-| OS | Fedora 44, kernel 7.2.8, Xorg 21.1.24 | same | same (near-stock install) |
-| Qt / desktop | Qt 6.11.2, KDE Plasma 6.7.5 (X11) | same | same |
+| OS | Fedora 44 (X11), kept updated | same | Fedora 44 (X11), near-stock install |
+| Qt / desktop | Qt 6, KDE Plasma 6 | same | same |
 
 ## Workarounds
 
