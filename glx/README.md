@@ -47,7 +47,9 @@ being created/destroyed around it on the second thread.
 | RTX 5060 Ti (GB206), 595.104.02 | crashes (see above) | 0 crashes |
 | RTX 5060 Ti (GB206), **595.112.07** | **3 / 3**, same path at the new offsets | 0 / 3 |
 | RTX 5060 Ti (GB206), **620.70.06** | **3 / 3**, same path at the new offsets | 0 / 3 |
+| RTX 5060 Ti (GB206), **620.73.04** | **3 / 3**, same path at the new offsets | 0 / 3 |
 | RTX 4060 Laptop (AD107), 595.104.02 | **3 / 3**, same frames | 0 / 3 |
+| RTX 4060 Laptop (AD107), **620.73.04** | **3 / 3**, same frames as the 620.73.04 Qt crashes | 0 / 3 |
 | RTX 5060 (GB206), 615.71.09, near-stock Fedora 44 | **3 / 3**, same frames as the 615 Qt crashes | 0 / 3 |
 
 Raw output: [`../results/glx-rtx4060laptop-595.104.02.txt`](../results/glx-rtx4060laptop-595.104.02.txt),
